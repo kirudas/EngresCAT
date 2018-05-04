@@ -6,10 +6,10 @@ import android.media.Image;
  * Created by JordiC on 27/04/2018.
  */
 
-public class Event {
+public class DetallEvent {
     private String Name, ImageURL;
 
-    public Event(String name, String imageURL){
+    public DetallEvent(String name, String imageURL){
         Name = name;
         ImageURL = imageURL;
     }

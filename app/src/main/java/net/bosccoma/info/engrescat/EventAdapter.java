@@ -1,7 +1,6 @@
 package net.bosccoma.info.engrescat;
 
 import android.content.Context;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,22 +17,22 @@ import java.util.List;
  */
 
 public class EventAdapter extends BaseAdapter{
-private List<Event> eventList;
+private List<DetallEvent> detallEventList;
 private Context mContext;
 
-    public EventAdapter(List<Event> eventList, Context mContext) {
-        this.eventList = eventList;
+    public EventAdapter(List<DetallEvent> detallEventList, Context mContext) {
+        this.detallEventList = detallEventList;
         this.mContext = mContext;
     }
 
     @Override
     public int getCount() {
-        return eventList.size();
+        return detallEventList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return eventList.get(i);
+        return detallEventList.get(i);
     }
 
     @Override
@@ -50,8 +49,8 @@ private Context mContext;
             ImageView imageView = (ImageView)rowView.findViewById(R.id.image);
 
             //Definir el contingut - Set Data
-            Picasso.with(mContext).load(eventList.get(i).getImageURL()).into(imageView);
-            name.setText(eventList.get(i).getName());
+            Picasso.with(mContext).load(detallEventList.get(i).getImageURL()).into(imageView);
+            name.setText(detallEventList.get(i).getName());
         }
         return rowView;
     }

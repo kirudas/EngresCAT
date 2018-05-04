@@ -1,51 +1,15 @@
 package net.bosccoma.info.engrescat;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextSwitcher;
-import android.widget.TextView;
-import android.widget.Toolbar;
-import android.widget.ViewSwitcher;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -54,11 +18,6 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity {
 
     static final int CAMERA_APP_CODE = 100;
-
-    private FeatureCoverFlow coverFlow;
-    private EventAdapter eventAdapter;
-    private List<Event> eventList = new ArrayList<>();
-    private TextSwitcher mTitle;
 
     ImageButton btnFerFoto;
     ImageView imgPerfil;
@@ -76,51 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         inicialitzarGui();
 
-        initData();
-        mTitle = (TextSwitcher)findViewById(R.id.title2);
-        mTitle.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                LayoutInflater inflater = LayoutInflater.from(LoginActivity.this);
-                TextView txt = (TextView) inflater.inflate(R.layout.layout_title,null);
-                return  txt;
-            }
-        });
-
-        Animation in = AnimationUtils.loadAnimation(this,R.anim.slide_in_top);
-        Animation out = AnimationUtils.loadAnimation(this,R.anim.slide_out_bottom);
-        mTitle.setInAnimation(in);
-        mTitle.setOutAnimation(out);
-
-
-        //
-        eventAdapter = new EventAdapter(eventList, this);
-        coverFlow = (FeatureCoverFlow) findViewById(R.id.coverFlow);
-        coverFlow.setAdapter(eventAdapter);
-
-        coverFlow.setOnScrollPositionListener(new FeatureCoverFlow.OnScrollPositionListener() {
-            @Override
-            public void onScrolledToPosition(int position) {
-                mTitle.setText(eventList.get(position).getName());
-            }
-
-            @Override
-            public void onScrolling() {
-
-            }
-        });
-
     }
 
-    private void initData() {
 
-        eventList.add(new Event("Exposició Japonesa","http://www.agendaolot.cat/wp-content/uploads/Expo_Cer%C3%A0mica_Japonesa.jpg"));
-        eventList.add(new Event("Emprimavera't","http://www.agendaolot.cat/wp-content/uploads/emprimaverataco1.jpg"));
-        eventList.add(new Event("Tots Dansen","http://www.agendaolot.cat/wp-content/uploads/Tots-Dansen_1.jpg"));
-        eventList.add(new Event("Exposició Japonesa","http://www.agendaolot.cat/wp-content/uploads/Expo_Cer%C3%A0mica_Japonesa.jpg"));
-        eventList.add(new Event("Emprimavera't","http://www.agendaolot.cat/wp-content/uploads/emprimaverataco1.jpg"));
-        eventList.add(new Event("Tots Dansen","http://www.agendaolot.cat/wp-content/uploads/Tots-Dansen_1.jpg"));
-    }
 
     /**
      * Inicialitza els objectes de la GUI.
@@ -138,9 +55,11 @@ public class LoginActivity extends AppCompatActivity {
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText nom = (EditText) findViewById(R.id.txt_nom);
-                EditText cognoms = (EditText) findViewById(R.id.txt_cognoms);
-                setContentView(R.layout.activity_event);
+                //EditText nom = (EditText) findViewById(R.id.txt_nom);
+                //EditText cognoms = (EditText) findViewById(R.id.txt_cognoms);
+                //setContentView(R.layout.activity_event);
+                Intent intent = new Intent(getBaseContext(),LlistaEventsActivity.class);
+                startActivity(intent);
 
             }
         });
