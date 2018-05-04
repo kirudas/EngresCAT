@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">EngresCAT</string>
+
+    <!-- Strings related to login -->
+
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="action_sign_in">Iniciar Sessió</string>
+    <string name="error_invalid_email">Aquesta direcció de correu electrònic no és vàlida</string>
+    <string name="error_invalid_password">Aquesta contrassenya és massa curta</string>
+    <string name="error_incorrect_password">Aquesta contrassenya és incorrecte</string>
+    <string name="error_field_required">Ompli els camps obligatoris(*)</string>
+
+    <!-- Strings related to Events -->
+
+    <string name="recent_news">日本の陶器CERÀMICA JAPONESA. Estiu </string>
+    <string name="in_news">L’estiu de 1986 la cooperativa de ceramistes Coure d’Olot va organitzar a la Vall de Bianya una trobada amb set ceramistes japonesos, alguns dels quals descendents d’antigues famílies de ceramistes, d’altres amb una formació més internacional, però tots amb una visió molt contemporània de la producció ceràmica. Van ser encara no deu dies durant els quals la visió tradicional del fet de fer ceràmica va experimentar una gran sacsejada, tant des del punt de vista formal com del conceptual, i va marcar per sempre els ceramistes que hi van participar.
+D’aquella experiència en va resultar un conjunt d’obres que es guarden i es conserven al Museu de la Garrotxa i que es podran veure en aquesta exposició.
+És la col·lecció més important de ceràmica japonesa contemporània de Catalunya.</string>
+    <string name="publish_date">10/02/2018 12:00:00</string>
+
+
+</resources>
