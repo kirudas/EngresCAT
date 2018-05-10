@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 //EditText nom = (EditText) findViewById(R.id.txt_nom);
                 //EditText cognoms = (EditText) findViewById(R.id.txt_cognoms);
                 //setContentView(R.layout.activity_event);
-                Intent intent = new Intent(getBaseContext(),LlistaEventsActivity.class);
+                Intent intent = new Intent(getBaseContext(),OpcionsMenu.class);
                 startActivity(intent);
 
             }

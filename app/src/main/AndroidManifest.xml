@@ -24,7 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LlistaEventsActivity"></activity>
+        <activity android:name=".LlistaEventsActivity" />
+        <activity android:name=".OpcionsMenu" />
+        <activity android:name=".AdvancedSearch"></activity>
+        <activity android:name=".DetallEvent"></activity>
     </application>
 
 </manifest>
