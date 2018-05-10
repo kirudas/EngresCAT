@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LlistaEventsActivity"></activity>
+        <activity android:name=".DetallEvent"></activity>
     </application>
 
 </manifest>

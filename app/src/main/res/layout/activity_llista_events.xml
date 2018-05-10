@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.bosccoma.info.engrescat.LoginActivity">
+    tools:context="net.bosccoma.info.engrescat.LlistaEventsActivity"
+    android:background="@color/cardview_dark_background">
 
     <it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow
         android:id="@+id/coverFlow"
