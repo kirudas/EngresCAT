@@ -1,8 +1,11 @@
 package net.bosccoma.info.engrescat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,17 +13,59 @@ import android.widget.Button;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * Created by JordiC on 27/04/2018.
  */
 
 public class DetallEvent extends AppCompatActivity {
-    private String Name, ImageURL;
-    private String prova = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=descripcio,%20subt_tol,%20imatges,%20horari%20&$where=codi%20=20180315003";
+    private String titol,desc,imatges;
+    private TextView txtTitol, txtDesc;
+    private ImageView imgImatge;
+    private String latitud, longitud;
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String imageURL, name;
+    private String prova = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=descripcio,%20denominaci,%20imatges,%20horari,%20latitud,%20longitud%20&$where=codi%20=20180315003";
     FloatingActionButton bt_share;
+    private JSONArray jsonArray;
+    private TextView hola;
+    public DetallEvent(String name, String imageURL){
+        this.name = name;
+        this.imageURL = imageURL;
+    }
     public DetallEvent(){
-        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -38,26 +83,38 @@ public class DetallEvent extends AppCompatActivity {
                 startActivity(Intent.createChooser(myIntent,"Compartir amb:"));  //Titol de l'activity
             }
         });
-    }
-    public DetallEvent(String name, String imageURL){
-        Name = name;
-        ImageURL = imageURL;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            shouldShowRequestPermissionRationale(Manifest.permission.INTERNET);
+        }
+        txtTitol = findViewById(R.id.id_detallevent_titol);
+        txtDesc = findViewById(R.id.id_detallevent_descripcio);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, prova,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            jsonArray = new JSONArray(response);
+                            int cont = jsonArray.length();
+                            desc = jsonArray.getJSONObject(0).getString("descripcio");
+                            //horari = jsonArray.getJSONObject(0).getString("horari");
+                            titol = jsonArray.getJSONObject(0).getString("denominaci");
+                            latitud = jsonArray.getJSONObject(0).getString("latitud");
+                            longitud = jsonArray.getJSONObject(0).getString("longitud");
+                            txtTitol.setText(titol);
+                            txtDesc.setText(desc);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(DetallEvent.this, "That didn't work!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(stringRequest);
+
     }
 
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public String getImageURL() {
-        return ImageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        ImageURL = imageURL;
-    }
 }
