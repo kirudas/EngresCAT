@@ -59,9 +59,33 @@ public class OpcionsMenu extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(OpcionsMenu.this,LlistaEventsActivity.class);
-                    intent.putExtra("info","This is activity from card item index  "+finalI);
-                    startActivity(intent);
+                    switch(finalI){
+                        case 0:
+                            Intent intent = new Intent(OpcionsMenu.this,LlistaEventsActivity.class);
+                            intent.putExtra("info","This is activity from card item index  "+finalI);
+                            startActivity(intent);
+                            break;
+
+                        case 1:
+                            Intent intent1 = new Intent(OpcionsMenu.this,DetallEvent.class);
+                            intent1.putExtra("info","This is activity from card item index  "+finalI);
+                            startActivity(intent1);
+                            break;
+
+                        case 2:
+                            Intent intent2 = new Intent(OpcionsMenu.this,LlistaEventsActivity.class);
+                            intent2.putExtra("info","This is activity from card item index  "+finalI);
+                            startActivity(intent2);
+                            break;
+
+                        case 3:
+                        Intent intent3 = new Intent(OpcionsMenu.this,Profile.class);
+                        intent3.putExtra("info","This is activity from card item index  "+finalI);
+                        startActivity(intent3);
+                        break;
+
+                    }
+
 
                 }
             });
