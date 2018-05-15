@@ -4,24 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.bosccoma.info.engrescat.LoginActivity"
     android:background="@color/graylight"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="net.bosccoma.info.engrescat.Profile">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="405dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="235dp"
             android:background="@drawable/gradientbackground"
             android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/btn_foto"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
                 android:layout_below="@+id/txt_titol"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
@@ -29,19 +29,6 @@
                 android:background="@drawable/ic_foto_perfil_background"
                 android:elevation="4dp"
                 android:src="@drawable/ic_person_black_24dp" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_perfil"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_below="@+id/txt_titol"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="45dp"
-                android:background="@drawable/ic_foto_perfil_background"
-                android:elevation="4dp"
-                android:src="@drawable/ic_camera"
-                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,9 +44,11 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="400dp"
-            android:layout_height="120dp"
+            android:layout_height="63dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="275dp">
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="235dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,7 +58,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -93,7 +82,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -117,7 +106,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -147,92 +136,104 @@
     <LinearLayout
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_marginTop="45dp">
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp">
+
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_email_black_24dp"/>
+                android:src="@drawable/ic_email_black_24dp" />
+
             <TextView
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="example@gmail.com"/>
+                android:text="example@gmail.com"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingLeft="25dp">
+
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_phone_android_black_24dp"/>
-            <TextView
-                android:textStyle="bold"
+                android:src="@drawable/ic_phone_android_black_24dp" />
 
-                android:layout_gravity="center_vertical"
+            <TextView
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="+266 225 225"/>
+                android:text="+266 225 225"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingLeft="25dp">
+
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_group_add_black_24dp"/>
-            <TextView
-                android:textStyle="bold"
+                android:src="@drawable/ic_group_add_black_24dp" />
 
-                android:layout_gravity="center_vertical"
+            <TextView
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="Add to group"/>
+                android:text="Add to group"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingLeft="25dp">
+
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_forum_black_24dp"/>
-            <TextView
-                android:textStyle="bold"
+                android:src="@drawable/ic_forum_black_24dp" />
 
-                android:layout_gravity="center_vertical"
+            <TextView
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="Show all comments"/>
+                android:text="Show all comments"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
     <Button
-        android:textColor="#fff"
-        android:background="@drawable/buttonstyleithgradient"
-        android:layout_marginTop="35dp"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Follow Me"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/buttonstyleithgradient"
+        android:text="EDITAR"
+        android:textColor="#fff" />
 
 </LinearLayout>
