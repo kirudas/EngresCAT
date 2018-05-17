@@ -101,7 +101,6 @@ public class DetallEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-
         //Funcionalitat del botó SHARE
         codi = getExtras(savedInstanceState);
         request += codi;
@@ -121,10 +120,21 @@ public class DetallEvent extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             shouldShowRequestPermissionRationale(Manifest.permission.INTERNET);
         }
+        //Funcionalitat del botó NAVIGATION
+        bt_location=(FloatingActionButton) findViewById(R.id.btn_navigation);
+        bt_location.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showMap();
+            }
+        });
+        bt_location.setEnabled(false);
+        //Carregar Dades de l'event
         txtTitol = findViewById(R.id.id_detallevent_titol);
         txtDesc = findViewById(R.id.id_detallevent_descripcio);
+        imgImatge = findViewById(R.id.id_detallevent_imatge);
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, prova,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, request,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -137,8 +147,9 @@ public class DetallEvent extends AppCompatActivity {
                             latitud = jsonArray.getJSONObject(0).getString("latitud");
                             longitud = jsonArray.getJSONObject(0).getString("longitud");
                             String auxImatge = jsonArray.getJSONObject(0).getString("imatges");
-                            if (auxImatge.contains(","))
-                                auxImatge = auxImatge.substring(0,auxImatge.indexOf(','));
+                            if (auxImatge.contains(",")) {
+                                auxImatge = auxImatge.substring(0, auxImatge.indexOf(','));
+                            }
                             imatges = "https://agenda.cultura.gencat.cat"+auxImatge;
                             txtTitol.setText(titol);
                             txtDesc.setText(desc);
@@ -156,19 +167,6 @@ public class DetallEvent extends AppCompatActivity {
             }
         });
         queue.add(stringRequest);
-
-
-
-
-        //Funcionalitat del botó NAVIGATION
-        bt_location=(FloatingActionButton) findViewById(R.id.btn_navigation);
-        bt_location.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                showMap();
-            }
-        });
-        bt_location.setEnabled(false);
     }
 
     public void showMap() {

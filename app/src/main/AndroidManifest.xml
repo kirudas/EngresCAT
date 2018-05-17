@@ -24,10 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LlistaEventsActivity" />
+        <activity android:name=".LlistaEventsActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".OpcionsMenu" />
         <activity android:name=".AdvancedSearch"></activity>
-        <activity android:name=".DetallEvent"></activity>
+        <activity android:name=".DetallEvent" android:configChanges="keyboard|keyboardHidden|orientation|screenSize"></activity>
         <activity android:name=".Profile"></activity>
         <activity android:name=".ProximsEvents"></activity>
     </application>
