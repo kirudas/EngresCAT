@@ -3,6 +3,7 @@ package net.bosccoma.info.engrescat;
 import android.Manifest;
 import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -41,6 +42,10 @@ public class DetallEvent extends AppCompatActivity {
         return codi;
     }
 
+    private String Name, ImageURL;
+
+    FloatingActionButton  bt_location, bt_interest;
+
     private String titol,desc,imatges;
     private TextView txtTitol, txtDesc;
     private ImageView imgImatge;
@@ -60,7 +65,7 @@ public class DetallEvent extends AppCompatActivity {
     public void setName(String name) {
         this.name = name;
     }
-
+    private Uri gmmIntentUri;
     private String imageURL, name;
     private String request = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=descripcio,%20denominaci,%20imatges,%20horari,%20latitud,%20longitud%20&$where=codi%20=";
     FloatingActionButton bt_share;
@@ -96,6 +101,8 @@ public class DetallEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+        //Funcionalitat del botó SHARE
         codi = getExtras(savedInstanceState);
         request += codi;
         bt_share=(FloatingActionButton) findViewById(R.id.btn_share);
@@ -116,9 +123,8 @@ public class DetallEvent extends AppCompatActivity {
         }
         txtTitol = findViewById(R.id.id_detallevent_titol);
         txtDesc = findViewById(R.id.id_detallevent_descripcio);
-        imgImatge = findViewById(R.id.id_detallevent_imatge);
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, request,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, prova,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -137,6 +143,8 @@ public class DetallEvent extends AppCompatActivity {
                             txtTitol.setText(titol);
                             txtDesc.setText(desc);
                             Picasso.with(getBaseContext()).load(imatges).into(imgImatge);
+                            bt_location.setEnabled(true);
+                            gmmIntentUri=  Uri.parse(String.format("google.navigation:q=%s,%S", latitud,longitud));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -149,6 +157,26 @@ public class DetallEvent extends AppCompatActivity {
         });
         queue.add(stringRequest);
 
+
+
+
+        //Funcionalitat del botó NAVIGATION
+        bt_location=(FloatingActionButton) findViewById(R.id.btn_navigation);
+        bt_location.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showMap();
+            }
+        });
+        bt_location.setEnabled(false);
+    }
+
+    public void showMap() {
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
     }
 
 }
