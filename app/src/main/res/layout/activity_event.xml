@@ -29,7 +29,8 @@
                 android:contentDescription="@string/app_name"
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
-                android:layout_height="350dp" />
+                android:layout_height="350dp"
+                android:id="@+id/id_detallevent_imatge"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -69,6 +70,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/id_detallevent_titol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -92,6 +94,7 @@
                         android:src="@drawable/ic_clock" />
 
                     <TextView
+                        android:id="@+id/id_detallevent_horari"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -105,6 +108,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/id_detallevent_descripcio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"

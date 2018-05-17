@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -58,7 +62,11 @@ public class LoginActivity extends AppCompatActivity {
                 //EditText nom = (EditText) findViewById(R.id.txt_nom);
                 //EditText cognoms = (EditText) findViewById(R.id.txt_cognoms);
                 //setContentView(R.layout.activity_event);
-                Intent intent = new Intent(getBaseContext(),DetallEvent.class);
+                Intent intent = new Intent(getBaseContext(),LlistaEventsActivity.class);
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String data = dateFormat.format(new Date());
+                String consulta = String.format("&$where=data_inici=\"%s\" AND data_fi>=\"%s\"",data,data);
+                intent.putExtra("data",consulta);
                 startActivity(intent);
 
             }

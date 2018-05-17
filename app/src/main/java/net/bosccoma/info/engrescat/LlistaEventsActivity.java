@@ -1,11 +1,13 @@
 package net.bosccoma.info.engrescat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +36,38 @@ public class LlistaEventsActivity extends AppCompatActivity {
     private JSONArray jsonArray;
     private String v_ini_url = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=codi, denominaci, imatges ";
     private String v_fi_url = "&$group=codi, denominaci, imatges ";
+    private boolean isCharged = false;
+    private int posicio = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llista_events);
-        v_ini_url += getExtras(savedInstanceState);
         initData();
+        v_ini_url += getExtras(savedInstanceState);
+        v_ini_url += v_fi_url;
+
+
+        Animation in = AnimationUtils.loadAnimation(this,R.anim.slide_in_top);
+        Animation out = AnimationUtils.loadAnimation(this,R.anim.slide_out_bottom);
+        mTitle = (TextSwitcher)findViewById(R.id.title2);
+        mTitle.setInAnimation(in);
+        mTitle.setOutAnimation(out);
+
+        eventAdapter = new EventAdapter(detallEventList, getBaseContext());
+        coverFlow = (FeatureCoverFlow) findViewById(R.id.coverFlow);
+        coverFlow.setAdapter(eventAdapter);
+        coverFlow.setOnScrollPositionListener(new FeatureCoverFlow.OnScrollPositionListener() {
+            @Override
+            public void onScrolledToPosition(int position) {
+                mTitle.setText(detallEventList.get(position).getName());
+                posicio = position;
+            }
+
+            @Override
+            public void onScrolling() {
+
+            }
+        });
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, v_ini_url,
                 new Response.Listener<String>() {
@@ -50,13 +78,20 @@ public class LlistaEventsActivity extends AppCompatActivity {
                             int cont = jsonArray.length();
                             String nom;
                             String imatge;
+                            String codi;
+                            if (cont > 0)
+                                detallEventList = new ArrayList<>();
                             for (int i = 0; i < cont; i++){
+                                codi = jsonArray.getJSONObject(i).getString("codi");
                                 nom = jsonArray.getJSONObject(i).getString("denominaci");
                                 imatge = jsonArray.getJSONObject(i).getString("imatges");
                                 if (imatge.contains(","))
                                     imatge = imatge.substring(0,imatge.indexOf(','));
-                                detallEventList.add(new DetallEvent(nom,"https://agenda.cultura.gencat.cat"+imatge));
+                                detallEventList.add(new DetallEvent(codi, nom,"https://agenda.cultura.gencat.cat"+imatge));
                             }
+                            isCharged = true;
+                            eventAdapter = new EventAdapter(detallEventList, getBaseContext());
+                            coverFlow.setAdapter(eventAdapter);
                             int pausa = 0;
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -69,7 +104,7 @@ public class LlistaEventsActivity extends AppCompatActivity {
             }
         });
         queue.add(stringRequest);
-        mTitle = (TextSwitcher)findViewById(R.id.title2);
+
         mTitle.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
@@ -78,27 +113,14 @@ public class LlistaEventsActivity extends AppCompatActivity {
                 return  txt;
             }
         });
-
-        Animation in = AnimationUtils.loadAnimation(this,R.anim.slide_in_top);
-        Animation out = AnimationUtils.loadAnimation(this,R.anim.slide_out_bottom);
-        mTitle.setInAnimation(in);
-        mTitle.setOutAnimation(out);
-
-
-        //
-        eventAdapter = new EventAdapter(detallEventList, this);
-        coverFlow = (FeatureCoverFlow) findViewById(R.id.coverFlow);
-        coverFlow.setAdapter(eventAdapter);
-
-        coverFlow.setOnScrollPositionListener(new FeatureCoverFlow.OnScrollPositionListener() {
+        mTitle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onScrolledToPosition(int position) {
-                mTitle.setText(detallEventList.get(position).getName());
-            }
-
-            @Override
-            public void onScrolling() {
-
+            public void onClick(View v) {
+                if (isCharged){
+                    Intent intent = new Intent(getBaseContext(), DetallEvent.class);
+                    intent.putExtra("codi",detallEventList.get(posicio).getCodi());
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -117,12 +139,6 @@ public class LlistaEventsActivity extends AppCompatActivity {
         return newString;
     }
     private void initData() {
-
         detallEventList.add(new DetallEvent("Exposició Japonesa","http://www.agendaolot.cat/wp-content/uploads/Expo_Cer%C3%A0mica_Japonesa.jpg"));
-        detallEventList.add(new DetallEvent("Emprimavera't","http://www.agendaolot.cat/wp-content/uploads/emprimaverataco1.jpg"));
-        detallEventList.add(new DetallEvent("Tots Dansen","http://www.agendaolot.cat/wp-content/uploads/Tots-Dansen_1.jpg"));
-        detallEventList.add(new DetallEvent("Exposició Japonesa","http://www.agendaolot.cat/wp-content/uploads/Expo_Cer%C3%A0mica_Japonesa.jpg"));
-        detallEventList.add(new DetallEvent("Emprimavera't","http://www.agendaolot.cat/wp-content/uploads/emprimaverataco1.jpg"));
-        detallEventList.add(new DetallEvent("Tots Dansen","http://www.agendaolot.cat/wp-content/uploads/Tots-Dansen_1.jpg"));
     }
 }

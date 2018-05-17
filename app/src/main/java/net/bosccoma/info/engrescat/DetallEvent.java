@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +35,12 @@ import org.w3c.dom.Text;
  */
 
 public class DetallEvent extends AppCompatActivity {
+    private String codi;
+
+    public String getCodi() {
+        return codi;
+    }
+
     private String titol,desc,imatges;
     private TextView txtTitol, txtDesc;
     private ImageView imgImatge;
@@ -55,10 +62,9 @@ public class DetallEvent extends AppCompatActivity {
     }
 
     private String imageURL, name;
-    private String prova = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=descripcio,%20denominaci,%20imatges,%20horari,%20latitud,%20longitud%20&$where=codi%20=20180315003";
+    private String request = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=descripcio,%20denominaci,%20imatges,%20horari,%20latitud,%20longitud%20&$where=codi%20=";
     FloatingActionButton bt_share;
     private JSONArray jsonArray;
-    private TextView hola;
     public DetallEvent(String name, String imageURL){
         this.name = name;
         this.imageURL = imageURL;
@@ -66,10 +72,32 @@ public class DetallEvent extends AppCompatActivity {
     public DetallEvent(){
 
     }
+    public DetallEvent(String codi, String name, String imageURL){
+        this.name = name;
+        this.codi = codi;
+        this.imageURL = imageURL;
+    }
+    private String getExtras(Bundle savedInstanceState){
+        String newString;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                newString= null;
+            } else {
+                newString= extras.getString("codi");
+            }
+        } else {
+            newString= (String) savedInstanceState.getSerializable("codi");
+        }
+        return newString;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        codi = getExtras(savedInstanceState);
+        request += codi;
         bt_share=(FloatingActionButton) findViewById(R.id.btn_share);
         bt_share.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -88,8 +116,9 @@ public class DetallEvent extends AppCompatActivity {
         }
         txtTitol = findViewById(R.id.id_detallevent_titol);
         txtDesc = findViewById(R.id.id_detallevent_descripcio);
+        imgImatge = findViewById(R.id.id_detallevent_imatge);
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, prova,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, request,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -101,8 +130,13 @@ public class DetallEvent extends AppCompatActivity {
                             titol = jsonArray.getJSONObject(0).getString("denominaci");
                             latitud = jsonArray.getJSONObject(0).getString("latitud");
                             longitud = jsonArray.getJSONObject(0).getString("longitud");
+                            String auxImatge = jsonArray.getJSONObject(0).getString("imatges");
+                            if (auxImatge.contains(","))
+                                auxImatge = auxImatge.substring(0,auxImatge.indexOf(','));
+                            imatges = "https://agenda.cultura.gencat.cat"+auxImatge;
                             txtTitol.setText(titol);
                             txtDesc.setText(desc);
+                            Picasso.with(getBaseContext()).load(imatges).into(imgImatge);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

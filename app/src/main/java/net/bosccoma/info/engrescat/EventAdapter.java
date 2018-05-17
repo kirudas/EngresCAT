@@ -1,9 +1,11 @@
 package net.bosccoma.info.engrescat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +45,7 @@ private Context mContext;
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View rowView = view;
+        if (getCount() > 0){
         if (rowView == null){
             rowView = LayoutInflater.from(mContext).inflate(R.layout.layout_item,null);
             TextView name = (TextView)rowView.findViewById(R.id.label);
@@ -51,7 +54,8 @@ private Context mContext;
             //Definir el contingut - Set Data
             Picasso.with(mContext).load(detallEventList.get(i).getImageURL()).into(imageView);
             name.setText(detallEventList.get(i).getName());
-        }
+
+        }}
         return rowView;
     }
 }
