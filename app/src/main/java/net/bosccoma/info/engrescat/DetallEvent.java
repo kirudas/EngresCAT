@@ -3,7 +3,9 @@ package net.bosccoma.info.engrescat;
 import android.Manifest;
 import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -29,47 +31,41 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.Locale;
+
 /**
  * Created by JordiC on 27/04/2018.
  */
 
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class DetallEvent extends AppCompatActivity {
+    private String Name, ImageURL;
+
+    FloatingActionButton  bt_location, bt_interest;
+
     private String titol,desc,imatges;
     private TextView txtTitol, txtDesc;
     private ImageView imgImatge;
     private String latitud, longitud;
-    public String getImageURL() {
-        return imageURL;
-    }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     private String imageURL, name;
     private String prova = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=descripcio,%20denominaci,%20imatges,%20horari,%20latitud,%20longitud%20&$where=codi%20=20180315003";
     FloatingActionButton bt_share;
     private JSONArray jsonArray;
     private TextView hola;
-    public DetallEvent(String name, String imageURL){
-        this.name = name;
-        this.imageURL = imageURL;
-    }
-    public DetallEvent(){
+    private Uri gmmIntentUri;
 
-    }
+    public DetallEvent(){
+        }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+        //Funcionalitat del botó SHARE
         bt_share=(FloatingActionButton) findViewById(R.id.btn_share);
         bt_share.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -83,7 +79,8 @@ public class DetallEvent extends AppCompatActivity {
                 startActivity(Intent.createChooser(myIntent,"Compartir amb:"));  //Titol de l'activity
             }
         });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+        if (VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             shouldShowRequestPermissionRationale(Manifest.permission.INTERNET);
         }
         txtTitol = findViewById(R.id.id_detallevent_titol);
@@ -103,6 +100,8 @@ public class DetallEvent extends AppCompatActivity {
                             longitud = jsonArray.getJSONObject(0).getString("longitud");
                             txtTitol.setText(titol);
                             txtDesc.setText(desc);
+                            bt_location.setEnabled(true);
+                            gmmIntentUri=  Uri.parse(String.format("google.navigation:q=%s,%S", latitud,longitud));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -115,6 +114,48 @@ public class DetallEvent extends AppCompatActivity {
         });
         queue.add(stringRequest);
 
+
+
+
+        //Funcionalitat del botó NAVIGATION
+        bt_location=(FloatingActionButton) findViewById(R.id.btn_navigation);
+        bt_location.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showMap();
+            }
+        });
+        bt_location.setEnabled(false);
     }
 
+    public void showMap() {
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
+    }
+
+    public DetallEvent(String name, String imageURL){
+        Name = name;
+        ImageURL = imageURL;
+    }
+
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+
+    public String getImageURL() {
+        return ImageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        ImageURL = imageURL;
+    }
 }

@@ -117,7 +117,6 @@ public class LlistaEventsActivity extends AppCompatActivity {
         return newString;
     }
     private void initData() {
-
         detallEventList.add(new DetallEvent("Exposició Japonesa","http://www.agendaolot.cat/wp-content/uploads/Expo_Cer%C3%A0mica_Japonesa.jpg"));
         detallEventList.add(new DetallEvent("Emprimavera't","http://www.agendaolot.cat/wp-content/uploads/emprimaverataco1.jpg"));
         detallEventList.add(new DetallEvent("Tots Dansen","http://www.agendaolot.cat/wp-content/uploads/Tots-Dansen_1.jpg"));
