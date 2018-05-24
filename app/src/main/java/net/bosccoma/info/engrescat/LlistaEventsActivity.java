@@ -80,7 +80,7 @@ public class LlistaEventsActivity extends AppCompatActivity {
                             String imatge;
                             String codi;
                             if (cont > 0)
-                                detallEventList = new ArrayList<>();
+                                detallEventList.remove(0);
                             for (int i = 0; i < cont; i++){
                                 codi = jsonArray.getJSONObject(i).getString("codi");
                                 nom = jsonArray.getJSONObject(i).getString("denominaci");
