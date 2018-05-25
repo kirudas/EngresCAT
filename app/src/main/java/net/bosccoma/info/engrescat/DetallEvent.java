@@ -47,7 +47,7 @@ public class DetallEvent extends AppCompatActivity {
     FloatingActionButton  bt_location, bt_interest;
 
     private String titol,desc,imatges;
-    private TextView txtTitol, txtDesc;
+    private TextView txtTitol, txtDesc,txtDataInici,txtDataFi;
     private ImageView imgImatge;
     private String latitud, longitud;
     public String getImageURL() {
@@ -67,7 +67,7 @@ public class DetallEvent extends AppCompatActivity {
     }
     private Uri gmmIntentUri;
     private String imageURL, name;
-    private String request = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=descripcio,%20denominaci,%20imatges,%20horari,%20latitud,%20longitud%20&$where=codi%20=";
+    private String request = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=descripcio,%20denominaci,%20imatges,%20horari,%20latitud,%20longitud,%20data_inici,%20data_fi%20&$where=codi%20=";
     FloatingActionButton bt_share;
     private JSONArray jsonArray;
     public DetallEvent(String name, String imageURL){
@@ -133,6 +133,8 @@ public class DetallEvent extends AppCompatActivity {
         txtTitol = findViewById(R.id.id_detallevent_titol);
         txtDesc = findViewById(R.id.id_detallevent_descripcio);
         imgImatge = findViewById(R.id.id_detallevent_imatge);
+        txtDataInici = findViewById(R.id.id_detallevent_data_inici);
+        txtDataFi = findViewById(R.id.id_detallevent_data_fi);
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, request,
                 new Response.Listener<String>() {
@@ -144,8 +146,12 @@ public class DetallEvent extends AppCompatActivity {
                             desc = jsonArray.getJSONObject(0).getString("descripcio");
                             //horari = jsonArray.getJSONObject(0).getString("horari");
                             titol = jsonArray.getJSONObject(0).getString("denominaci");
-                            latitud = jsonArray.getJSONObject(0).getString("latitud");
-                            longitud = jsonArray.getJSONObject(0).getString("longitud");
+                            if(jsonArray.getJSONObject(0).has("latitud"))
+                                latitud = jsonArray.getJSONObject(0).getString("latitud");
+                            if(jsonArray.getJSONObject(0).has("longitud"))
+                                longitud = jsonArray.getJSONObject(0).getString("longitud");
+                            txtDataInici.setText(formataData(jsonArray.getJSONObject(0).getString("data_inici")));
+                            txtDataFi.setText(formataData(jsonArray.getJSONObject(0).getString("data_fi")));
                             String auxImatge = jsonArray.getJSONObject(0).getString("imatges");
                             if (auxImatge.contains(",")) {
                                 auxImatge = auxImatge.substring(0, auxImatge.indexOf(','));
@@ -167,6 +173,10 @@ public class DetallEvent extends AppCompatActivity {
             }
         });
         queue.add(stringRequest);
+    }
+
+    private String formataData(String data) {
+        return data.substring(0,data.indexOf('T'));
     }
 
     public void showMap() {

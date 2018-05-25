@@ -19,8 +19,8 @@ import java.util.List;
  */
 
 public class EventAdapter extends BaseAdapter{
-private List<DetallEvent> detallEventList;
-private Context mContext;
+    private List<DetallEvent> detallEventList;
+    private Context mContext;
 
     public EventAdapter(List<DetallEvent> detallEventList, Context mContext) {
         this.detallEventList = detallEventList;
@@ -46,16 +46,16 @@ private Context mContext;
     public View getView(int i, View view, ViewGroup viewGroup) {
         View rowView = view;
         if (getCount() > 0){
-        if (rowView == null){
-            rowView = LayoutInflater.from(mContext).inflate(R.layout.layout_item,null);
-            TextView name = (TextView)rowView.findViewById(R.id.label);
-            ImageView imageView = (ImageView)rowView.findViewById(R.id.image);
+            if (rowView == null){
+                rowView = LayoutInflater.from(mContext).inflate(R.layout.layout_item,null);
+                TextView name = (TextView)rowView.findViewById(R.id.label);
+                ImageView imageView = (ImageView)rowView.findViewById(R.id.image);
 
-            //Definir el contingut - Set Data
-            Picasso.with(mContext).load(detallEventList.get(i).getImageURL()).into(imageView);
-            name.setText(detallEventList.get(i).getName());
+                //Definir el contingut - Set Data
+                Picasso.with(mContext).load(detallEventList.get(i).getImageURL()).into(imageView);
+                name.setText(detallEventList.get(i).getName());
 
-        }}
+            }}
         return rowView;
     }
 }

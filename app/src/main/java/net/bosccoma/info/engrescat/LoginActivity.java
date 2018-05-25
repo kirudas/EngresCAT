@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -65,7 +66,10 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(),LlistaEventsActivity.class);
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String data = dateFormat.format(new Date());
-                String consulta = String.format("&$where=data_inici=\"%s\" AND data_fi>=\"%s\"",data,data);
+                Calendar c = Calendar.getInstance();
+                c.add(Calendar.DAY_OF_MONTH, 5);
+                String datafin = dateFormat.format(c.getTime());
+                String consulta = String.format("&$where=data_inici>=\"%s\" AND data_inici<=\"%s\" AND data_fi>=\"%s\" AND data_fi<=\"%s\" ",data,datafin,data,datafin);
                 intent.putExtra("data",consulta);
                 startActivity(intent);
 

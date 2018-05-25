@@ -84,23 +84,64 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="" />
+
+                    <TextView
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Comença" />
+
+                    <TextView
+                        android:layout_width="152dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Acaba" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:padding="12dp">
 
                     <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="64dp"
+                        android:layout_height="45dp"
                         android:layout_weight="1"
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_clock" />
 
                     <TextView
-                        android:id="@+id/id_detallevent_horari"
-                        android:layout_width="0dp"
+                        android:id="@+id/id_detallevent_data_inici"
+                        android:layout_width="169dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="9"
+                        android:gravity="center"
                         android:padding="12dp"
                         android:text="@string/publish_date"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/id_detallevent_data_fi"
+                        android:layout_width="156dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:text="@string/finish_date"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="14sp"
                         android:textStyle="bold" />
