@@ -44,7 +44,7 @@ public class DetallEvent extends AppCompatActivity {
 
     private String Name, ImageURL;
 
-    FloatingActionButton  bt_location,bt_share, bt_interest;
+    FloatingActionButton  bt_location, bt_interest;
 
     private String titol,desc,imatges;
     private TextView txtTitol, txtDesc,txtDataInici,txtDataFi;
