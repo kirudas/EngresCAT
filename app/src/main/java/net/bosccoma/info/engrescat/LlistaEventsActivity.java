@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,15 +30,19 @@ import java.util.List;
 import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
 
 public class LlistaEventsActivity extends AppCompatActivity {
+    public static final String TAG = "Proxims";
     private FeatureCoverFlow coverFlow;
     private EventAdapter eventAdapter;
     private List<DetallEvent> detallEventList = new ArrayList<>();
     private TextSwitcher mTitle;
     private JSONArray jsonArray;
     private String v_ini_url = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=codi, denominaci, imatges ";
-    private String v_fi_url = "&$group=codi, denominaci, imatges ";
+    private String v_fi_url = "&$order=data_inici, data_fi, codi ASC";//"&$group=codi, denominaci, imatges ";
     private boolean isCharged = false;
     private int posicio = 0;
+    RequestQueue queue;
+    StringRequest stringRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +57,20 @@ public class LlistaEventsActivity extends AppCompatActivity {
         mTitle = (TextSwitcher)findViewById(R.id.title2);
         mTitle.setInAnimation(in);
         mTitle.setOutAnimation(out);
-
         eventAdapter = new EventAdapter(detallEventList, getBaseContext());
+        eventAdapter.notifyDataSetChanged();
         coverFlow = (FeatureCoverFlow) findViewById(R.id.coverFlow);
         coverFlow.setAdapter(eventAdapter);
+        coverFlow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               if (isCharged) {
+                   Intent intent = new Intent(getBaseContext(), DetallEvent.class);
+                   intent.putExtra("codi", detallEventList.get(posicio).getCodi());
+                   startActivity(intent);
+               }
+            }
+        });
         coverFlow.setOnScrollPositionListener(new FeatureCoverFlow.OnScrollPositionListener() {
             @Override
             public void onScrolledToPosition(int position) {
@@ -68,8 +83,8 @@ public class LlistaEventsActivity extends AppCompatActivity {
 
             }
         });
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, v_ini_url,
+        queue = Volley.newRequestQueue(this);
+        stringRequest = new StringRequest(Request.Method.GET, v_ini_url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -79,23 +94,45 @@ public class LlistaEventsActivity extends AppCompatActivity {
                             String nom;
                             String imatge;
                             String codi;
-                            if (cont > 0)
-                                detallEventList.remove(0);
-                            for (int i = 0; i < cont; i++){
-                                codi = jsonArray.getJSONObject(i).getString("codi");
-                                nom = jsonArray.getJSONObject(i).getString("denominaci");
-                                imatge = jsonArray.getJSONObject(i).getString("imatges");
-                                if (imatge.contains(","))
-                                    imatge = imatge.substring(0,imatge.indexOf(','));
-                                detallEventList.add(new DetallEvent(codi, nom,"https://agenda.cultura.gencat.cat"+imatge));
+                            if (cont > 0){
+                                //detallEventList.remove(0);
+                                detallEventList.clear();
+                                coverFlow.clearCache();
+                                coverFlow.refreshDrawableState();
                             }
-                            isCharged = true;
-                            eventAdapter = new EventAdapter(detallEventList, getBaseContext());
-                            coverFlow.setAdapter(eventAdapter);
-                            int pausa = 0;
+                            for (int i = 0; i < cont; i++){
+                                codi = jsonArray.getJSONObject(i).getString("codi").trim();
+                                nom = jsonArray.getJSONObject(i).getString("denominaci").trim();
+                                imatge = jsonArray.getJSONObject(i).getString("imatges").trim();
+                                if (imatge.contains(",/content")){
+                                    imatge = imatge.substring(0,imatge.indexOf(','));
+                                }
+                                boolean repetit = false;
+                                int pos = 0;
+                                int canv = 0;
+                                for (DetallEvent item:detallEventList) {
+                                    if (item.getCodi().equals(codi)||item.getName().equals(nom)||item.getImageURL().equals(imatge)){
+                                        repetit = true;
+                                    }
+                                    pos++;
+                                }
+                                if (repetit){
+                                    if (detallEventList.get(canv).getImageURL() == null){
+                                        detallEventList.get(canv).setImageURL(imatge);
+                                    }
+                                }else{
+                                    detallEventList.add(new DetallEvent(codi, nom,"https://agenda.cultura.gencat.cat"+imatge));
+                                }
+
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        isCharged = true;
+                        eventAdapter = new EventAdapter(detallEventList, getBaseContext());
+                        coverFlow.setAdapter(eventAdapter);
+                        int pausa = 0;
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -113,16 +150,15 @@ public class LlistaEventsActivity extends AppCompatActivity {
                 return  txt;
             }
         });
-        mTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isCharged){
-                    Intent intent = new Intent(getBaseContext(), DetallEvent.class);
-                    intent.putExtra("codi",detallEventList.get(posicio).getCodi());
-                    startActivity(intent);
-                }
-            }
-        });
+
+    }
+
+    @Override
+    protected void onStop () {
+        super.onStop();
+        if (queue != null) {
+            queue.cancelAll(TAG);
+        }
     }
     private String getExtras(Bundle savedInstanceState){
         String newString;
@@ -141,4 +177,5 @@ public class LlistaEventsActivity extends AppCompatActivity {
     private void initData() {
         detallEventList.add(new DetallEvent("Exposició Japonesa","http://www.agendaolot.cat/wp-content/uploads/Expo_Cer%C3%A0mica_Japonesa.jpg"));
     }
+
 }

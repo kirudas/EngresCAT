@@ -17,9 +17,10 @@
     <string name="in_news">L’estiu de 1986 la cooperativa de ceramistes Coure d’Olot va organitzar a la Vall de Bianya una trobada amb set ceramistes japonesos, alguns dels quals descendents d’antigues famílies de ceramistes, d’altres amb una formació més internacional, però tots amb una visió molt contemporània de la producció ceràmica. Van ser encara no deu dies durant els quals la visió tradicional del fet de fer ceràmica va experimentar una gran sacsejada, tant des del punt de vista formal com del conceptual, i va marcar per sempre els ceramistes que hi van participar.
 D’aquella experiència en va resultar un conjunt d’obres que es guarden i es conserven al Museu de la Garrotxa i que es podran veure en aquesta exposició.
 És la col·lecció més important de ceràmica japonesa contemporània de Catalunya.</string>
-    <string name="publish_date">10/02/2018 12:00:00</string>
 
 
+    <string name="publish_date">10/02/2018</string>
+    <string name="finish_date">10/02/2018</string>
     <string name="item1" />
     <string name="item2" />
     <string name="item3" />
