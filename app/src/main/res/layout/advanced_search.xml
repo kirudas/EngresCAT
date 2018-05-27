@@ -3,65 +3,165 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/graylight">
 
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="151dp"
-        android:layout_height="68dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="351dp"
-        android:layout_height="62dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+    <TextView
+        android:id="@+id/textViewCategoria"
+        android:layout_width="235dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/filtre_categoria"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ExpandableListView
-        android:id="@+id/expandableListView"
-        android:layout_width="169dp"
-        android:layout_height="63dp"
+    <CheckBox
+        android:id="@+id/checkBoxCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.764"
+        app:layout_constraintStart_toEndOf="@+id/textViewCategoria"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteCategoria"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="8"
+        android:hint="Categories..."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCategoria" />
+
+    <TextView
+        android:id="@+id/textViewClau"
+        android:layout_width="280dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/filtre_paraulaClau"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteCategoria" />
+
+    <CheckBox
+        android:id="@+id/checkBoxClau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintStart_toEndOf="@+id/textViewClau"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxCategoria" />
+
+
+    <EditText
+        android:id="@+id/editTextClau"
+        android:layout_width="268dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Festival,exposició..."
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewClau" />
+
+    <TextView
+        android:id="@+id/textViewDates"
+        android:layout_width="280dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/filtre_dates"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextClau" />
+
+    <CheckBox
+        android:id="@+id/checkBoxDates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewDates"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxClau" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilPlannedDate"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDates">
+
+        <EditText
+            android:id="@+id/etDataInici"
+            android:layout_width="354dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/report_dataInici"
+            android:inputType="date"
+            android:maxLines="1" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilDeadline"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/tilPlannedDate">
 
-    <AdapterViewFlipper
-        android:id="@+id/adapterViewFlipper"
-        android:layout_width="171dp"
-        android:layout_height="62dp"
+        <EditText
+            android:id="@+id/etDataFi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/report_dataFi"
+            android:inputType="date"
+            android:maxLines="1" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btn_cercar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="22dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/action_search"
+        android:textColor="@color/blanc"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expandableListView" />
+        app:layout_constraintTop_toBottomOf="@+id/tilDeadline" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="350dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:entries="@string/item3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adapterViewFlipper" />
 
 </android.support.constraint.ConstraintLayout>

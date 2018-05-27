@@ -44,7 +44,7 @@ public class DetallEvent extends AppCompatActivity {
 
     private String Name, ImageURL;
 
-    FloatingActionButton  bt_location, bt_interest;
+    FloatingActionButton  bt_location,bt_share, bt_interest;
 
     private String titol,desc,imatges;
     private TextView txtTitol, txtDesc;
@@ -68,8 +68,9 @@ public class DetallEvent extends AppCompatActivity {
     private Uri gmmIntentUri;
     private String imageURL, name;
     private String request = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=descripcio,%20denominaci,%20imatges,%20horari,%20latitud,%20longitud%20&$where=codi%20=";
-    FloatingActionButton bt_share;
+
     private JSONArray jsonArray;
+
     public DetallEvent(String name, String imageURL){
         this.name = name;
         this.imageURL = imageURL;
@@ -104,19 +105,7 @@ public class DetallEvent extends AppCompatActivity {
         //Funcionalitat del botó SHARE
         codi = getExtras(savedInstanceState);
         request += codi;
-        bt_share=(FloatingActionButton) findViewById(R.id.btn_share);
-        bt_share.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(Intent.ACTION_SEND);
-                myIntent.setType("text/plain");
-                String shareBody = "Cos de l'event";
-                String shareSub = "Titol de l'event";
-                myIntent.putExtra(Intent.EXTRA_SUBJECT,shareBody);
-                myIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
-                startActivity(Intent.createChooser(myIntent,"Compartir amb:"));  //Titol de l'activity
-            }
-        });
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             shouldShowRequestPermissionRationale(Manifest.permission.INTERNET);
         }
@@ -128,7 +117,9 @@ public class DetallEvent extends AppCompatActivity {
                 showMap();
             }
         });
-        bt_location.setEnabled(false);
+        //bt_location.setEnabled(false);
+        //Funcionalitat del botó SHARE
+        bt_share=(FloatingActionButton) findViewById(R.id.btn_share);
         //Carregar Dades de l'event
         txtTitol = findViewById(R.id.id_detallevent_titol);
         txtDesc = findViewById(R.id.id_detallevent_descripcio);
@@ -154,8 +145,23 @@ public class DetallEvent extends AppCompatActivity {
                             txtTitol.setText(titol);
                             txtDesc.setText(desc);
                             Picasso.with(getBaseContext()).load(imatges).into(imgImatge);
+                            //Boto que prepara la navegació
                             bt_location.setEnabled(true);
                             gmmIntentUri=  Uri.parse(String.format("google.navigation:q=%s,%S", latitud,longitud));
+                            //Boto que comparteix l'esdeveniment
+                            final String finalAuxImatge = auxImatge;
+                            bt_share.setOnClickListener(new View.OnClickListener(){
+                                @Override
+                                public void onClick(View v) {
+                                    Intent myIntent = new Intent(Intent.ACTION_SEND);
+                                    myIntent.setType("text/plain");
+                                    String shareBody = finalAuxImatge;
+                                    String shareSub = titol;
+                                    myIntent.putExtra(Intent.EXTRA_SUBJECT,shareBody);
+                                    myIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                                    startActivity(Intent.createChooser(myIntent,"Compartir amb:"));  //Titol de l'activity
+                                }
+                            });
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

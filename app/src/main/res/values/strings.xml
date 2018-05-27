@@ -18,9 +18,41 @@
 D’aquella experiència en va resultar un conjunt d’obres que es guarden i es conserven al Museu de la Garrotxa i que es podran veure en aquesta exposició.
 És la col·lecció més important de ceràmica japonesa contemporània de Catalunya.</string>
     <string name="publish_date">10/02/2018 12:00:00</string>
+
+
     <string name="item1" />
     <string name="item2" />
     <string name="item3" />
+
+
+    <!-- String related to Advanced_Search -->
+    <string name="report_dataInici">Data Inici</string>
+    <string name="report_dataFi">Data Fi</string>
+    <string name="filtre_categoria">Vol filtrar per categories?</string>
+    <string name="filtre_paraulaClau">Vol filtrar per una paraula clau?</string>
+    <string name="filtre_dates">Vol filtrar per dates?</string>
+    <string name="action_search">Cercar</string>
+
+
+    <!-- String Categories -->
+    <string-array name="categoria">
+        <item>sardanes</item>
+        <item>dansa</item>
+        <item>rutes-i-visites</item>
+        <item>infantil</item>
+        <item>cursos</item>
+        <item>exposicions</item>
+        <item>teatre</item>
+        <item>conferencies</item>
+        <item>festivals-i-mostres</item>
+        <item>fires-i-mercats</item>
+        <item>teatre</item>
+        <item>setmana-santa</item>
+        <item>commemoracions</item>
+        <item>cicles</item>
+        <item>gegants</item>
+        <item>festes</item>
+    </string-array>
 
 
 </resources>
