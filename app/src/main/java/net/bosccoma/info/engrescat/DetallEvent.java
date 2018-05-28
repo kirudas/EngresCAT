@@ -181,7 +181,15 @@ public class DetallEvent extends AppCompatActivity {
     }
 
     private String formataData(String data) {
-        return data.substring(0,data.indexOf('T'));
+        StringBuilder sb = new StringBuilder();
+        String[] split = data.substring(0,data.indexOf('T')).split("-");
+        sb.append(split[2]);
+        sb.append("/");
+        sb.append(split[1]);
+        sb.append("/");
+        sb.append(split[0]);
+        return sb.toString();
+        //return data.substring(0,data.indexOf('T'));
     }
 
     public void showMap() {
