@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
@@ -36,8 +37,8 @@ public class LlistaEventsActivity extends AppCompatActivity {
     private List<DetallEvent> detallEventList = new ArrayList<>();
     private TextSwitcher mTitle;
     private JSONArray jsonArray;
-    private String v_ini_url = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=codi, denominaci, imatges ";
-    private String v_fi_url = "&$order=data_inici, data_fi, codi ASC";//"&$group=codi, denominaci, imatges ";
+    private String v_ini_url = "https://analisi.transparenciacatalunya.cat/resource/ta2y-snj2.json?$select=codi,%20denominaci,%20imatges%20";
+    private String v_fi_url = "&$order=data_inici,%20data_fi,%20codi%20ASC";//"&$group=codi, denominaci, imatges ";
     private boolean isCharged = false;
     private int posicio = 0;
     RequestQueue queue;
@@ -162,17 +163,38 @@ public class LlistaEventsActivity extends AppCompatActivity {
     }
     private String getExtras(Bundle savedInstanceState){
         String newString;
+        StringBuilder sb = new StringBuilder();
+        ArrayList<String> condicions = new ArrayList<>();
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                newString= null;
-            } else {
-                newString= extras.getString("data");
+            if(extras != null) {
+                for (String key:extras.keySet()) {
+                    condicions.add(extras.getString(key));
+                }
+                //condicions.add(extras.getString("cat"));
+                //condicions.add(extras.getString("paraula"));
+                //condicions.add(extras.getString("data"));
             }
         } else {
-            newString= (String) savedInstanceState.getSerializable("data");
+            condicions.add((String)savedInstanceState.getSerializable("cat"));
+            condicions.add((String) savedInstanceState.getSerializable("paraula"));
+            condicions.add((String) savedInstanceState.getSerializable("data"));
+            //newString= (String) savedInstanceState.getSerializable("data");
         }
-        return newString;
+        boolean primer = true;
+        for (String condicio:condicions){
+            if (condicio != null){
+                if (primer){
+                    primer = false;
+                    sb.append("&$where=");
+                }else{
+                    sb.append("AND%20");
+                }
+                sb.append(condicio);
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
     }
     private void initData() {
         detallEventList.add(new DetallEvent("Exposició Japonesa","http://www.agendaolot.cat/wp-content/uploads/Expo_Cer%C3%A0mica_Japonesa.jpg"));

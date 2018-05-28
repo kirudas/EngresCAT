@@ -56,11 +56,22 @@ private  String  inici,fi;
         btnCercar.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 Intent intent = new Intent(getBaseContext(), LlistaEventsActivity.class);
+                 if (checkCategoria.isChecked()){
+                     String cat = categoria.getText().toString();
+                     if (cat.length() > 0)
+                     intent.putExtra("cat",String.format("tags_categor_es LIKE \"%%s%\"",cat));
+                 }
+                 if (checkClau.isChecked()){
+                     String paraula = paraulaClau.getText().toString();
+                     if (paraula.length() > 0)
+                     intent.putExtra("paraula",String.format("denominaci LIKE \"%%s%\"",paraula));
+                 }
 
-                 if (checkCategoria.isChecked() && checkClau.isChecked() && checkData.isChecked()) {
-                     Intent intent = new Intent(getBaseContext(), LlistaEventsActivity.class);
+                 if(checkData.isChecked()) {
+
                      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+                    if (DataInici.getText().toString().length() > 0 && DataFi.getText().toString().length() > 0){
                      String any = DataInici.getText().toString().substring(6);
                      String dia = DataInici.getText().toString().substring(0,2);
                      String mes = DataInici.getText().toString().substring(3,5);
@@ -72,19 +83,17 @@ private  String  inici,fi;
                      String mesF = DataFi.getText().toString().substring(3,5);
 
                      fi = anyF+'-'+mesF+'-'+diaF;
-                     String cat = categoria.getText().toString();
 
-                     //Afegir AND tags_categor_es="%s"  a la consulta per buscar per categoria, pero modificar el grup by i afegir categoria tmb.
-                     String consulta = String.format("&$where=data_inici=\"%s\" AND data_fi>=\"%s\" ", inici, fi);
-                     intent.putExtra("data", consulta);
-                     startActivity(intent);
+                     String consulta = String.format("data_inici>=\"%s\" AND data_inici<=\"%s\" AND data_fi>=\"%s\"", inici,fi, fi);
+                     intent.putExtra("data", consulta);}
                  }
+                 startActivity(intent);
 
              }
         });
 
         //categoria.getText().toString();
-        paraulaClau.getText().toString();
+
 
         checkCategoria.isChecked();
         checkClau.isChecked();

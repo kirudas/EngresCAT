@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DAY_OF_MONTH, 5);
                 String datafin = dateFormat.format(c.getTime());
-                String consulta = String.format("&$where=data_inici>=\"%s\" AND data_inici<=\"%s\" AND data_fi>=\"%s\" AND data_fi<=\"%s\" ",data,datafin,data,datafin);
+                String consulta = String.format("data_inici>=\"%s\" AND data_inici<=\"%s\" AND data_fi>=\"%s\" AND data_fi<=\"%s\" ",data,datafin,data,datafin);
                 intent.putExtra("data",consulta);
                 startActivity(intent);
 
