@@ -6,20 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="net.bosccoma.info.engrescat.LlistaEventsActivity"
-    android:background="@color/cardview_dark_background">
-    <!--<Button
-        android:id="@+id/angry_btn"
+    android:background="@color/cardview_dark_background"
+    android:id="@+id/llista_layout">
+    <android.support.v7.widget.Toolbar
 
-        android:text="Més info"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_margin="12dp"
-        android:padding="8dp"
-        />-->
+        android:id="@+id/llista_toolbar"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
+        android:background="@android:color/transparent"
+
+        />
     <it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow
         android:id="@+id/coverFlow"
         android:layout_height="match_parent"

@@ -12,6 +12,11 @@ import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class OpcionsMenu extends AppCompatActivity {
     GridLayout mainGrid;
 
@@ -61,28 +66,34 @@ public class OpcionsMenu extends AppCompatActivity {
 
                     switch(finalI){
                         case 0:
-                            Intent intent = new Intent(OpcionsMenu.this,LlistaEventsActivity.class);
-                            intent.putExtra("info","This is activity from card item index  "+finalI);
+                            Intent intent = new Intent(getBaseContext(),LlistaEventsActivity.class);
+                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            String data = dateFormat.format(new Date());
+                            Calendar c = Calendar.getInstance();
+                            c.add(Calendar.DAY_OF_MONTH, 5);
+                            String datafin = dateFormat.format(c.getTime());
+                            String consulta = String.format("data_inici>=\"%s\" AND data_inici<=\"%s\" AND data_fi>=\"%s\" AND data_fi<=\"%s\" ",data,datafin,data,datafin);
+                            intent.putExtra("data",consulta);
                             startActivity(intent);
                             break;
 
                         case 1:
-                            Intent intent1 = new Intent(OpcionsMenu.this,DetallEvent.class);
-                            intent1.putExtra("info","This is activity from card item index  "+finalI);
+                            Intent intent1 = new Intent(OpcionsMenu.this,AdvancedSearch.class);
+                            //intent1.putExtra("info","This is activity from card item index  "+finalI);
                             startActivity(intent1);
                             break;
 
                         case 2:
-                            Intent intent2 = new Intent(OpcionsMenu.this,LlistaEventsActivity.class);
-                            intent2.putExtra("info","This is activity from card item index  "+finalI);
+                            Intent intent2 = new Intent(OpcionsMenu.this,LoginActivity.class);
+                            //intent2.putExtra("info","This is activity from card item index  "+finalI);
                             startActivity(intent2);
                             break;
 
                         case 3:
-                        Intent intent3 = new Intent(OpcionsMenu.this,Profile.class);
-                        intent3.putExtra("info","This is activity from card item index  "+finalI);
-                        startActivity(intent3);
-                        break;
+                            Intent intent3 = new Intent(OpcionsMenu.this,Profile.class);
+                        //intent3.putExtra("info","This is activity from card item index  "+finalI);
+                            startActivity(intent3);
+                            break;
 
                     }
 

@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="net.bosccoma.info.engrescat.DetallEvent">
+    <android.support.v7.widget.Toolbar
 
+        android:id="@+id/event_toolbar"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
+        android:background="@android:color/transparent"
+
+        />
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"

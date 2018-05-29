@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/graylight">
+    <android.support.v7.widget.Toolbar
+
+        android:id="@+id/advanced_toolbar"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
+        android:background="@android:color/transparent"
+
+        />
 
     <TextView
         android:id="@+id/textViewCategoria"

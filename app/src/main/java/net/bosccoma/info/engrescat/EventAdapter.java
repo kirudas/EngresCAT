@@ -14,6 +14,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow;
+
 /**
  * Created by JordiC on 27/04/2018.
  */
@@ -58,4 +60,5 @@ public class EventAdapter extends BaseAdapter{
             }}
         return rowView;
     }
+
 }

@@ -17,19 +17,24 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LlistaEventsActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".LlistaEventsActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <activity android:name=".OpcionsMenu" />
-        <activity android:name=".AdvancedSearch"></activity>
-        <activity android:name=".DetallEvent" android:configChanges="keyboard|keyboardHidden|orientation|screenSize"></activity>
-        <activity android:name=".Profile"></activity>
-        <activity android:name=".ProximsEvents"></activity>
+        <activity android:name=".AdvancedSearch" />
+        <activity
+            android:name=".DetallEvent"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity android:name=".Profile" />
+        <activity android:name=".ProximsEvents" />
     </application>
 
 </manifest>

@@ -1,10 +1,16 @@
 package net.bosccoma.info.engrescat;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -48,6 +54,11 @@ public class LlistaEventsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llista_events);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.llista_toolbar);
+        toolbar.bringToFront();
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
+        setSupportActionBar(toolbar);
         initData();
         v_ini_url += getExtras(savedInstanceState);
         v_ini_url += v_fi_url;
@@ -133,7 +144,7 @@ public class LlistaEventsActivity extends AppCompatActivity {
                         isCharged = true;
                         eventAdapter = new EventAdapter(detallEventList, getBaseContext());
                         coverFlow.setAdapter(eventAdapter);
-                        int pausa = 0;
+                        coverFlow.releaseAllMemoryResources();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -155,6 +166,26 @@ public class LlistaEventsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_general, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_item_opcions:
+                Intent intent = new Intent(getBaseContext(),OpcionsMenu.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     protected void onStop () {
         super.onStop();
         if (queue != null) {
@@ -171,9 +202,6 @@ public class LlistaEventsActivity extends AppCompatActivity {
                 for (String key:extras.keySet()) {
                     condicions.add(extras.getString(key));
                 }
-                //condicions.add(extras.getString("cat"));
-                //condicions.add(extras.getString("paraula"));
-                //condicions.add(extras.getString("data"));
             }
         } else {
             condicions.add((String)savedInstanceState.getSerializable("cat"));
@@ -191,7 +219,7 @@ public class LlistaEventsActivity extends AppCompatActivity {
                     sb.append("AND%20");
                 }
                 sb.append(condicio);
-                sb.append(" ");
+                sb.append("%20");
             }
         }
         return sb.toString();
@@ -199,5 +227,7 @@ public class LlistaEventsActivity extends AppCompatActivity {
     private void initData() {
         detallEventList.add(new DetallEvent("Exposició Japonesa","http://www.agendaolot.cat/wp-content/uploads/Expo_Cer%C3%A0mica_Japonesa.jpg"));
     }
+
+
 
 }

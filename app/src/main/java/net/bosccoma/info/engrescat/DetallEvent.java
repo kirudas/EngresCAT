@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
@@ -101,6 +105,12 @@ public class DetallEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.event_toolbar);
+        toolbar.bringToFront();
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
+        setSupportActionBar(toolbar);
+
         //Funcionalitat del botó SHARE
         codi = getExtras(savedInstanceState);
         request += codi;
@@ -154,17 +164,17 @@ public class DetallEvent extends AppCompatActivity {
                             bt_location.setEnabled(true);
                             gmmIntentUri=  Uri.parse(String.format("google.navigation:q=%s,%S", latitud,longitud));
                             //Boto que comparteix l'esdeveniment
-                            final String finalAuxImatge = auxImatge;
+
                             bt_share.setOnClickListener(new View.OnClickListener(){
                                 @Override
                                 public void onClick(View v) {
                                     Intent myIntent = new Intent(Intent.ACTION_SEND);
                                     myIntent.setType("text/plain");
-                                    String shareBody = finalAuxImatge;
-                                    String shareSub = titol;
-                                    myIntent.putExtra(Intent.EXTRA_SUBJECT,shareBody);
+                                    String link = "https://agenda.cultura.gencat.cat/content/agenda/ca/article.html?article="+codi;
+                                    String shareBody = titol +"\n"+"\n"+ link;
                                     myIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
-                                    startActivity(Intent.createChooser(myIntent,"Compartir amb:"));  //Titol de l'activity
+//myIntent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                                    startActivity(Intent.createChooser(myIntent,"Compartir amb:")); //Titol de l'activity
                                 }
                             });
                         } catch (JSONException e) {
@@ -178,6 +188,26 @@ public class DetallEvent extends AppCompatActivity {
             }
         });
         queue.add(stringRequest);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_general, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_item_opcions:
+                Intent intent = new Intent(getBaseContext(),OpcionsMenu.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private String formataData(String data) {
