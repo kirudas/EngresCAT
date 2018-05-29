@@ -60,12 +60,12 @@ private  String  inici,fi;
                  if (checkCategoria.isChecked()){
                      String cat = categoria.getText().toString();
                      if (cat.length() > 0)
-                     intent.putExtra("cat",String.format("tags_categor_es LIKE \"%%s%\"",cat));
+                     intent.putExtra("cat",String.format("tags_categor_es%%20LIKE%%20%%22%%25%s%%25%%22",cat));
                  }
                  if (checkClau.isChecked()){
                      String paraula = paraulaClau.getText().toString();
                      if (paraula.length() > 0)
-                     intent.putExtra("paraula",String.format("denominaci LIKE \"%%s%\"",paraula));
+                     intent.putExtra("paraula",String.format("denominaci%%20LIKE%%20%%22%%25%s%%25%%22",paraula));
                  }
 
                  if(checkData.isChecked()) {
@@ -84,7 +84,7 @@ private  String  inici,fi;
 
                      fi = anyF+'-'+mesF+'-'+diaF;
 
-                     String consulta = String.format("data_inici>=\"%s\" AND data_inici<=\"%s\" AND data_fi>=\"%s\"", inici,fi, fi);
+                     String consulta = String.format("data_inici>=\"%s\"%%20AND%%20data_inici<=\"%s\"%%20AND%%20data_fi>=\"%s\"", inici,fi, fi);
                      intent.putExtra("data", consulta);}
                  }
                  startActivity(intent);
