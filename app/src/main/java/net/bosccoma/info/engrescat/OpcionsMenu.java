@@ -86,6 +86,7 @@ public class OpcionsMenu extends AppCompatActivity {
                         case 2:
                             Intent intent2 = new Intent(OpcionsMenu.this,LoginActivity.class);
                             //intent2.putExtra("info","This is activity from card item index  "+finalI);
+                            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent2);
                             break;
 
