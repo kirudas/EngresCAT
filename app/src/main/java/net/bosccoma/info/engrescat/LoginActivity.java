@@ -16,16 +16,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * A login screen that offers login via email/password.
+/***
+ * Primera Activity de la Aplicació s'encarrega de fer el login dels usuaris o almenys era la nostre
+ * intenció inicial
  */
-
 public class LoginActivity extends AppCompatActivity {
-
+    //Codi utilizat per obrir i tornar de la camera d'Android
     static final int CAMERA_APP_CODE = 100;
-
+    //Botó per fer-se fotos i mostrar-les
     ImageButton btnFerFoto;
+    //Imatge de perfil
     ImageView imgPerfil;
+    //Botó per loginejar-te
     Button btnEntrar;
 
 
@@ -39,9 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         inicialitzarGui();
-
     }
-
 
 
     /**
@@ -60,17 +60,15 @@ public class LoginActivity extends AppCompatActivity {
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //EditText nom = (EditText) findViewById(R.id.txt_nom);
-                //EditText cognoms = (EditText) findViewById(R.id.txt_cognoms);
-                //setContentView(R.layout.activity_event);
-                Intent intent = new Intent(getBaseContext(),LlistaEventsActivity.class);
+//      Listener que obrira la llista d'events amb els pròxims events
+                Intent intent = new Intent(getBaseContext(), LlistaEventsActivity.class);
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String data = dateFormat.format(new Date());
                 Calendar c = Calendar.getInstance();
                 c.add(Calendar.DAY_OF_MONTH, 5);
                 String datafin = dateFormat.format(c.getTime());
-                String consulta = String.format("data_inici>=\"%s\" AND data_inici<=\"%s\" AND data_fi>=\"%s\" AND data_fi<=\"%s\" ",data,datafin,data,datafin);
-                intent.putExtra("data",consulta);
+                String consulta = String.format("data_inici>=\"%s\" AND data_inici<=\"%s\" AND data_fi>=\"%s\" AND data_fi<=\"%s\" ", data, datafin, data, datafin);
+                intent.putExtra("data", consulta);
                 startActivity(intent);
 
             }
@@ -102,12 +100,4 @@ public class LoginActivity extends AppCompatActivity {
             imgPerfil.setVisibility(View.VISIBLE);
         }
     }
-
-    /**
-     * Obre el menu
-     *
-     * @param nom     nom de l'usuari.
-     * @param congoms cognoms de l'usuari.
-     */
-
 }
