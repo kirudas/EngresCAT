@@ -120,7 +120,7 @@ public class LlistaEventsActivity extends AppCompatActivity {
             }
         });
 //      Creem la petició a la api
-        /*queue = Volley.newRequestQueue(this);
+        queue = Volley.newRequestQueue(this);
         stringRequest = new StringRequest(Request.Method.GET, v_ini_url,
                 new Response.Listener<String>() {
 //      Quan la petició sigui resposta executa el codi
@@ -179,7 +179,7 @@ public class LlistaEventsActivity extends AppCompatActivity {
                         eventAdapter = new EventAdapter(detallEventList, getBaseContext());
                         coverFlow.setAdapter(eventAdapter);
                         coverFlow.releaseAllMemoryResources();
-                        mTitle.setText(detallEventList.get(position).getName());
+                        mTitle.setText(detallEventList.get(posicio).getName());
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -188,7 +188,7 @@ public class LlistaEventsActivity extends AppCompatActivity {
             }
         });
 //      Afegim la petició a la api a la cua que internament ja carreguera la tasca asyncrona
-        queue.add(stringRequest);*/
+        queue.add(stringRequest);
 //      Carreguem el títol de la part inferior de la pantalla
         mTitle.setFactory(new ViewSwitcher.ViewFactory() {
             @Override

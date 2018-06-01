@@ -215,7 +215,7 @@ public class DetallEvent extends AppCompatActivity {
                                 auxImatge = auxImatge.substring(0, auxImatge.indexOf(','));
                             }
                             imatges = "https://agenda.cultura.gencat.cat" + auxImatge;
-                            imatges = "http://www.lavanguardia.com/r/GODO/LV/p5/WebSite/2018/05/29/Recortada/img_jcanyissa_20180518-093415_imagenes_lv_terceros_ps_cartel2018-kUOB--992x558@LaVanguardia-Web.jpg";
+// imatges = "http://www.lavanguardia.com/r/GODO/LV/p5/WebSite/2018/05/29/Recortada/img_jcanyissa_20180518-093415_imagenes_lv_terceros_ps_cartel2018-kUOB--992x558@LaVanguardia-Web.jpg";
 //      Carreguem la informació de l'event a la pantalla
                             txtTitol.setText(titol);
                             txtDesc.setText(desc);
